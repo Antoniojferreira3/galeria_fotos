@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <meta charset="UTF-8">
+    <title>Lista de Fotos</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0,
+0, 0.06); /* shadow-md */
+        }
+
+        h1 {
+            color: #1f2937;
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .galery-item {
+            display: flex;
+            align-items: center; /* Alinha verticalmente imagem e texto */
+            gap: 1rem; /* Espaçamento entre imagem e texto */
+            margin-bottom: 1.5rem;
+        }
+        .galery-item img {
+            width: 96px; /* w-24 */
+            height: 96px; /* h-24 */
+            object-fit: cover; /* Garante que a imagem cubra a área sem distorcer */
+            border-radius: 0.5rem; /* rounded-md */
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        h2 {
+            color: #1f2937;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: 600; /* font-semibold */
+            margin-top: 0; /* Remove margin-top padrão do h2 */
+            margin-bottom: 0.75rem;
+        }
+        h2 a {
+            color: #4f46e5; /* indigo-600 */
+            text-decoration: none;
+            transition: color 0.2s ease-in-out;
+        }
+        h2 a:hover {
+            color: #3730a3; /* indigo-800 */
+            text-decoration: underline;
+        }
+        p {
+            margin-bottom: 0.5rem;
+        }
+        strong {
+            font-weight: 600;
+        }
+        hr {
+            border-top: 1px solid #e5e7eb; /* border-gray-200 */
+            margin-top: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .empty-message {
+            text-align: center;
+            font-style: italic;
+            color: #6b7280;
+            padding: 1rem;
+            border: 1px dashed #d1d5db;
+            border-radius: 0.5rem;
+            margin-top: 2rem;
+        }
+</style>
+
+</head>
+<body>
+    <div class="container"></div>
+        <h1>Fotos Cadastradas</h1>
+        {% for galery in galleries %}
+
+            <div class="galery-item">
+            {% if galery.image %}
+<!-- Exibe a imagem se ela existir -->
+            <img src="{{ galery.image.url }}" alt="">
+            {% endif %}
+            <div class="galery-content">
+                <h2><a href="{% url 'galery_detail' galery.pk %}">{{ galery.title
+
+}}</a></h2>
+
+            <p><strong>Tempo de viagem:</strong> {{ galery.photo_period }}
+minutos</p>
+            <p><strong>photo_location:</strong> {{ galery.photo_location }}</p>
+            <p><strong>comments:</strong> {{ galery.comments }}</p>
+            </div>
+        </div>
+        <hr>
+    {% empty %}
+        <p class="empty-message">Nenhuma foto cadastrada.</p>
+    {% endfor %}
+    </div>
+</body>
+</html>

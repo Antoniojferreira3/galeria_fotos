@@ -16,8 +16,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
+from django.conf import settings
+from django.conf.urls.static import static
+
+def home(request):
+    return HttpResponse('galery_list.html')
+# "<h1>Bem-vindo ao site de Galeria de Fotos!</h1>")
 
 urlpatterns = [
 path('admin/', admin.site.urls),
-path('galleries/', include('galleries.urls')),
+path('', include('galleries.urls')),
+path('', home, name='home'),
 ]
+
+if settings.DEBUG:
+
+    urlpatterns += static(settings.MEDIA_URL,
+
+document_root=settings.MEDIA_ROOT)
