@@ -1,14 +1,31 @@
 from django.shortcuts import render, get_object_or_404
-
+from django.db.models import Q   # para pesquisa em múltiplos campos
 from .models import Galery
 
 # Página home da galeria
 # def home(request):
   #  return render(request, 'galleries/home.html')
 
+# def home(request):
+    # galleries = Galery.objects.all()  # pega todas as galerias do banco
+   # return render(request, 'galleries/home.html', {'galleries': galleries})
+
+   # Página home da galeria
 def home(request):
-    galleries = Galery.objects.all()  # pega todas as galerias do banco
-    return render(request, 'galleries/home.html', {'galleries': galleries})
+    query = request.GET.get('q')  # pega o que o usuário digitou
+    if query:
+        galleries = Galery.objects.filter(
+            Q(title__icontains=query) |
+            Q(comments__icontains=query) |
+            Q(photo_location__icontains=query)
+        )
+    else:
+        galleries = Galery.objects.all()
+    
+    return render(request, 'galleries/home.html', {
+        'galleries': galleries,
+        'query': query,
+    })
 
 def galery_list(request):
     galleries = Galery.objects.all()
