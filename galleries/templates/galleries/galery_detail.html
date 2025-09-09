@@ -1,4 +1,42 @@
-{% load static %}
+{%extends 'galleries/base.html' %}
+
+{% block title %}Home - Minhas fotos {% endblock %}
+
+{% block content %}
+
+        <div class="flex flex-col md:flex-row gap-8">
+            {# Imagem da foto #}
+            {% if galery.image %}
+            <div class="md:w-1/2">
+                <img src="{{ galery.image.url }}" alt="[Imagem de {{ galery.title }}]" class="w-full h-auto object-cover rounded-lg shadow-md">
+            </div>
+            {% endif %}
+
+            {# Detalhes da foto #}
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">{{ galery.title }}</h2>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-2">Localização</h3>
+                <p class="text-gray-700 mb-6 leading-relaxed">{{ galery.photo_location }}</p>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-2">Comentários</h3>
+                <p class="text-gray-700 mb-6 leading-relaxed whitespace-pre-wrap">{{ galery.comments}}</p>
+                <h3 class="text-2xl font-semibold text-gray-800 mb-2">data_das_fotos</h3>
+                <p class="text-gray-700 mb-6 leading-relaxed whitespace-pre-wrap">{{ galery.photo_period}}</p>
+            </div>
+        </div>
+        <div class="mt-8 text-center">
+            <a href="{%url 'home'%}" class="inline-block bg-orange-500 hover:bg-organge-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out shadow-lg">
+                &larr; Voltar para a lista de fotos
+            </a>
+        </div>
+        {% endblock %}
+
+
+
+
+
+
+
+<!--{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -17,14 +55,14 @@
         <header class="bg-gray-900 text-white p-6
     
     shadow-lg rounded-b-lg">
-        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-center"> <!-- Alterado para 'justify-center' para centralizar o conteúdo -->
+        <div class="container mx-auto flex flex-col sm:flex-row items-center justify-center"> <!- Alterado para 'justify-center' para centralizar o conteúdo -->
             <!-- Agrupamento para o Ícone e Título (Centralizado) -->
-            <div class="flex items-center mb-4 sm:mb-0">
+            <!--<div class="flex items-center mb-4 sm:mb-0">
                 <div class="text-4xl mr-4">
-                    <i class="fas fa-utensils"></i> <!-- Ícone de utensílios (faca e garfo) -->
-                </div>
-                <!-- Título da Página -->
-                <h1 class="text-4xl font-bold text-center sm:text-left">
+                    <i class="fas fa-utensils"></i> <!- Ícone de utensílios (faca e garfo) -->
+                <!--</div>
+                <!- Título da Página -->
+                <!--<h1 class="text-4xl font-bold text-center sm:text-left">
                     Minhas Fotos Maravilhosas
                 </h1>
             </div>
